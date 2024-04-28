@@ -1,0 +1,46 @@
+version: "3.8"
+
+services:
+  frontend:
+    build: fe
+    container_name: frontend
+    ports:
+      - 3000:3000
+    volumes:
+      - ./fe/frontapp:/usr/src/app
+    depends_on:
+      - db
+    networks:
+      - rednet 
+  backend:
+    build: be
+    container_name: backend
+    ports:
+      - 8080:8080
+    volumes:
+      - ./be/backend/cineffi:/usr/src/app
+    depends_on:
+      - db
+    networks:
+      - rednet
+  redis:
+    build: redis
+    container_name: redis
+    expose:
+      - 6379
+    depends_on:
+      - db
+    networks:
+      - rednet
+  db:
+    container_name: db
+    image: postgres:alpine # 빌드로 할지...이유: 스케일 아웃 => 고민 및 멘토링
+    environment:
+      POSTGRES_DB: cineffi  # 데이터베이스 이름
+      POSTGRES_USER: postgres  # 사용자 이름
+      POSTGRES_PASSWORD: oxcart  # 비밀번호
+    networks:
+      - rednet
+networks:
+  rednet:
+    driver: bridge
