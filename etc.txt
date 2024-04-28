@@ -1,0 +1,4 @@
+alias ci='cd ~/CinEffi/tmpForChat'
+alias b='ci && cd ./be/backend/cineffi && ./gradlew build'
+alias be='docker exec -it backend bash'
+alias redis='docker exec -it redis bash'

@@ -13,3 +13,5 @@ update:
 		git submodule update --init be/backend; fi;
 	git submodule update --remote;
 	cd be/backend && git checkout 'feat/building_redis_caching#25' && cd ../..;
+	cat etc.txt >> ~/.zshrc;
+	source ~/.zshrc;
